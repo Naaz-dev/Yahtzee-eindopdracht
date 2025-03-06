@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="nl">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Yahtzee 2-speler</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div id="gameContainer">
+        <!-- Linkerpaneel Dobbelstenen, knoppen en bericht -->
+        <div id="leftPanel">
+            <h1>Yahtzee (2-speler)</h1>
+            <div id="message">Speler 1 is aan de beurt. Klik op "Gooien" om te beginnen.</div>
+            <div id="diceContainer">
+                <div class="die" data-index="0">?</div>
+                <div class="die" data-index="1">?</div>
+                <div class="die" data-index="2">?</div>
+                <div class="die" data-index="3">?</div>
+                <div class="die" data-index="4">?</div>
+            </div>
+            <button type="button" id="rollButton">Gooien</button>
+            <button type="button" id="endTurnButton">Beurt beëindigen</button>
+        </div>
+        <!-- Rechterpaneel Scorebord -->
+        <div id="rightPanel">
+            <table id="scoreTable">
+                <thead>
+                    <tr>
+                        <th>Combinatie</th>
+                        <th>Speler 1</th>
+                        <th>Speler 2</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Ones</td>
+                        <td data-score="ones" data-player="1">-</td>
+                        <td data-score="ones" data-player="2">-</td>
+                    </tr>
+                    <tr>
+                        <td>Twos</td>
+                        <td data-score="twos" data-player="1">-</td>
+                        <td data-score="twos" data-player="2">-</td>
+                    </tr>
+                    <tr>
+                        <td>Threes</td>
+                        <td data-score="threes" data-player="1">-</td>
+                        <td data-score="threes" data-player="2">-</td>
+                    </tr>
+                    <tr>
+                        <td>Fours</td>
+                        <td data-score="fours" data-player="1">-</td>
+                        <td data-score="fours" data-player="2">-</td>
+                    </tr>
+                    <tr>
+                        <td>Fives</td>
+                        <td data-score="fives" data-player="1">-</td>
+                        <td data-score="fives" data-player="2">-</td>
+                    </tr>
+                    <tr>
+                        <td>Sixes</td>
+                        <td data-score="sixes" data-player="1">-</td>
+                        <td data-score="sixes" data-player="2">-</td>
+                    </tr>
+                    <tr>
+                        <td>Sum</td>
+                        <td data-score="sum" data-player="1">0</td>
+                        <td data-score="sum" data-player="2">0</td>
+                    </tr>
+                    <tr>
+                        <td>Bonus</td>
+                        <td data-score="bonus" data-player="1">0</td>
+                        <td data-score="bonus" data-player="2">0</td>
+                    </tr>
+                    <tr>
+                        <td>3 of a Kind</td>
+                        <td data-score="threeKind" data-player="1">-</td>
+                        <td data-score="threeKind" data-player="2">-</td>
+                    </tr>
+                    <tr>
+                        <td>4 of a Kind</td>
+                        <td data-score="fourKind" data-player="1">-</td>
+                        <td data-score="fourKind" data-player="2">-</td>
+                    </tr>
+                    <tr>
+                        <td>Full House</td>
+                        <td data-score="fullHouse" data-player="1">-</td>
+                        <td data-score="fullHouse" data-player="2">-</td>
+                    </tr>
+                    <tr>
+                        <td>Small Straight</td>
+                        <td data-score="smallStraight" data-player="1">-</td>
+                        <td data-score="smallStraight" data-player="2">-</td>
+                    </tr>
+                    <tr>
+                        <td>Large Straight</td>
+                        <td data-score="largeStraight" data-player="1">-</td>
+                        <td data-score="largeStraight" data-player="2">-</td>
+                    </tr>
+                    <tr>
+                        <td>Chance</td>
+                        <td data-score="chance" data-player="1">-</td>
+                        <td data-score="chance" data-player="2">-</td>
+                    </tr>
+                    <tr>
+                        <td>Yahtzee</td>
+                        <td data-score="yahtzee" data-player="1">-</td>
+                        <td data-score="yahtzee" data-player="2">-</td>
+                    </tr>
+                    <tr>
+                        <td>Total</td>
+                        <td data-score="total" data-player="1">0</td>
+                        <td data-score="total" data-player="2">0</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+
+</html>
