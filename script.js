@@ -22,3 +22,37 @@ var dice = document.querySelectorAll(".die");
 var rollButton = document.getElementById("rollButton");
 var endTurnButton = document.getElementById("endTurnButton");
 var scoreCells = document.querySelectorAll("[data-score");
+
+// dobbelsteen locken
+
+for (var i = 0; i < dice.length; i++) {
+    dice[i].addEventListener("click", function () {
+        // getal data index naar nummer
+        var index = parseInt(this.getAttribute("data-index"));
+        toggleLock(index);
+    });
+}
+//dobbelsteen locken of unlocken
+function toggleLock(index) {
+    //alleen locken als er al gegooid is
+    if (rollsleft < 3) {
+        locked[index] = !locked[index];
+        updateDiceUi();
+    }
+}
+
+function updateDiceUi() {
+    for (let i = 0; i < dice.length; i++) {
+        if (dice[i] === 0) {
+            diceEls[i].textContent = "?";
+        } else {
+            dice[i].textContent = dice[i];
+        }
+        //css class "locked" als de dobbelsteen vergrendeld is
+        if (locked[i]) {
+            dice[i].classList.add("locked");
+        } else {
+            dice[i].classList.remove("locked");
+        }
+    }
+}
