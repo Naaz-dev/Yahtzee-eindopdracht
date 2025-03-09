@@ -34,6 +34,27 @@ for (var i = 0; i < diceEls.length; i++) {
 }
 
 
+
+
+rollButton.addEventListener("click", rollDice);
+
+
+endTurnButton.addEventListener("click", endTurn);
+
+
+for (let j = 0; j < scoreCells.length; j++) {
+    scoreCells[j].addEventListener("click", function () {
+        let player = parseInt(this.getAttribute("data-player"));
+        let cat = this.getAttribute("data-score");
+        //cel allen werken bij huidige speler
+        if (player === currentPlayer && scores[currentPlayer][cat] === null && rollsleft < 3) {
+            let sc = calculateScore(cat, dice);
+            scores[currentPlayer][cat] = sc;
+            this.classList.add("chosen");
+        }
+    })
+}
+
 // gooien functie
 function rollDice() {
     if (rollsleft > 0)
