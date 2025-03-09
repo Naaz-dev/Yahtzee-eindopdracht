@@ -18,20 +18,37 @@ var scores = {
 
 
 var message = document.getElementById("message");
-var dice = document.querySelectorAll(".die");
+var diceEls = document.querySelectorAll(".die");
 var rollButton = document.getElementById("rollButton");
 var endTurnButton = document.getElementById("endTurnButton");
 var scoreCells = document.querySelectorAll("[data-score");
 
 // dobbelsteen locken
 
-for (var i = 0; i < dice.length; i++) {
-    dice[i].addEventListener("click", function () {
+for (var i = 0; i < diceEls.length; i++) {
+    diceEls[i].addEventListener("click", function () {
         // getal data index naar nummer
         var index = parseInt(this.getAttribute("data-index"));
         toggleLock(index);
     });
 }
+
+
+// gooien functie
+function rollDice() {
+    if (rollsleft > 0)
+        for (let i = 0; i < dice.length; i++) {
+            if (!locked[i]) {
+                dice[i] = Math.floor(Math.random() * 6) + 1;
+            }
+        }
+    rollsleft--;
+    updateDiceUi();
+}
+
+
+
+
 //dobbelsteen locken of unlocken
 function toggleLock(index) {
     //alleen locken als er al gegooid is
@@ -40,6 +57,11 @@ function toggleLock(index) {
         updateDiceUi();
     }
 }
+
+
+
+
+
 
 function updateDiceUi() {
     for (let i = 0; i < dice.length; i++) {
