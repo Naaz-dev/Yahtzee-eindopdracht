@@ -41,7 +41,7 @@ rollButton.addEventListener("click", rollDice);
 
 endTurnButton.addEventListener("click", endTurn);
 
-
+//click-event aan elke scorecel zodat de speler een score kan kiezen
 for (let j = 0; j < scoreCells.length; j++) {
     scoreCells[j].addEventListener("click", function () {
         let player = parseInt(this.getAttribute("data-player"));
@@ -51,20 +51,30 @@ for (let j = 0; j < scoreCells.length; j++) {
             let sc = calculateScore(cat, dice);
             scores[currentPlayer][cat] = sc;
             this.classList.add("chosen");
+
+            endTurn();
         }
-    })
+    });
 }
 
 // gooien functie
 function rollDice() {
-    if (rollsleft > 0)
+    if (rollsleft > 0) {
         for (let i = 0; i < dice.length; i++) {
             if (!locked[i]) {
                 dice[i] = Math.floor(Math.random() * 6) + 1;
             }
         }
-    rollsleft--;
-    updateDiceUi();
+        rollsleft--;
+
+        updateDiceUi();
+
+        updateMessage("Speler " + currentPlayer + "heeft gegooid.(" + rollsleft + "worpen over) ");
+
+    } else {
+        updateMessage("Geen worpen meer. Kies een score.");
+    }
+
 }
 
 
@@ -79,6 +89,17 @@ function toggleLock(index) {
     }
 }
 
+
+function endTurn() {
+    dice = [0, 0, 0, 0, 0];
+    locked = [false, false, false, false, false];
+    rollsleft = 3;
+    // Wissel van speler
+    currentPlayer = (currentPlayer === 1) ? 2 : 1;
+    updateDiceUi();
+    updateMessage("Speler " + currentPlayer + "is aan de beurt. Klik op 'Gooien'."
+    );
+}
 
 
 
@@ -98,4 +119,19 @@ function updateDiceUi() {
             dice[i].classList.remove("locked");
         }
     }
+}
+
+
+
+function updateScoreboard() {
+    for (let i = 0; i < scoreCells.length; i++) {
+        let cell = scoreCells[i];
+        let player = parseInt(cell.getAttribute("data-player"));
+        let cat = cell.getAttribute("data-score");
+    }
+}
+
+
+function updateMessage(msg) {
+    message.textContent = msg;
 }
