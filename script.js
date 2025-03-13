@@ -1,9 +1,9 @@
-var dice = [0, 0, 0, 0, 0];
-var locked = [false, false, false, false, false];
-var rollsleft = 3;
-var currentPlayer = 1;
+let dice = [0, 0, 0, 0, 0];
+let locked = [false, false, false, false, false];
+let rollsLeft = 3;
+let currentPlayer = 1;
 
-var scores = {
+let scores = {
     1: {
         ones: null, twos: null, threes: null, fours: null, fives: null, sixes: null,
         threeKind: null, fourKind: null, fullHouse: null, smallStraight: null,
@@ -17,18 +17,18 @@ var scores = {
 };
 
 
-var message = document.getElementById("message");
-var diceEls = document.querySelectorAll(".die");
-var rollButton = document.getElementById("rollButton");
-var endTurnButton = document.getElementById("endTurnButton");
-var scoreCells = document.querySelectorAll("[data-score");
+let message = document.getElementById("message");
+let diceEls = document.querySelectorAll(".die");
+let rollButton = document.getElementById("rollButton");
+let endTurnButton = document.getElementById("endTurnButton");
+let scoreCells = document.querySelectorAll("[data-score]");
 
 // dobbelsteen locken
 
-for (var i = 0; i < diceEls.length; i++) {
+for (let i = 0; i < diceEls.length; i++) {
     diceEls[i].addEventListener("click", function () {
         // getal data index naar nummer
-        var index = parseInt(this.getAttribute("data-index"));
+        let index = parseInt(this.getAttribute("data-index"));
         toggleLock(index);
     });
 }
@@ -51,7 +51,9 @@ for (let j = 0; j < scoreCells.length; j++) {
             let sc = calculateScore(cat, dice);
             scores[currentPlayer][cat] = sc;
             this.classList.add("chosen");
-
+            updateUpperSection(currentPlayer);
+            updateTotal(currentPlayer);
+            updateScoreboard();
             endTurn();
         }
     });
@@ -59,18 +61,18 @@ for (let j = 0; j < scoreCells.length; j++) {
 
 // gooien functie
 function rollDice() {
-    if (rollsleft > 0) {
+    if (rollsLeft > 0) {
         for (let i = 0; i < dice.length; i++) {
             if (!locked[i]) {
                 dice[i] = Math.floor(Math.random() * 6) + 1;
             }
         }
-        rollsleft--;
+        rollsLeft--;
 
         updateDiceUi();
 
         updateMessage("Speler " + currentPlayer + "heeft gegooid.(" + rollsleft + "worpen over) ");
-
+        updateScoreboard();
     } else {
         updateMessage("Geen worpen meer. Kies een score.");
     }
@@ -83,7 +85,7 @@ function rollDice() {
 //dobbelsteen locken of unlocken
 function toggleLock(index) {
     //alleen locken als er al gegooid is
-    if (rollsleft < 3) {
+    if (rollsLeft < 3) {
         locked[index] = !locked[index];
         updateDiceUi();
     }
@@ -97,8 +99,8 @@ function endTurn() {
     // Wissel van speler
     currentPlayer = (currentPlayer === 1) ? 2 : 1;
     updateDiceUi();
-    updateMessage("Speler " + currentPlayer + "is aan de beurt. Klik op 'Gooien'."
-    );
+    updateMessage("Speler " + currentPlayer + "is aan de beurt. Klik op 'Gooien'.");
+    updateScoreboard();
 }
 
 
@@ -106,17 +108,17 @@ function endTurn() {
 
 
 function updateDiceUi() {
-    for (let i = 0; i < dice.length; i++) {
+    for (let i = 0; i < diceEls.length; i++) {
         if (dice[i] === 0) {
             diceEls[i].textContent = "?";
         } else {
-            dice[i].textContent = dice[i];
+            diceEls[i].textContent = dice[i];
         }
         //css class "locked" als de dobbelsteen vergrendeld is
         if (locked[i]) {
-            dice[i].classList.add("locked");
+            diceEls[i].classList.add("locked");
         } else {
-            dice[i].classList.remove("locked");
+            diceEls[i].classList.remove("locked");
         }
     }
 }
@@ -131,7 +133,7 @@ function updateScoreboard() {
         // Als het de kolom is van de huidige speler en de score nog niet is ingevuld, toon dan de potentiële score
         if (player === currentPlayer && scores[currentPlayer][cat] === null &&
             rollsleft < 3 && cat !== "sum" && cat !== "bonus" && cat !== "total") {
-            let potential  calculateScore(cat, dice);
+            let potential = calculateScore(cat, dice);
             cell.textContent = potential;
         } else {
             let val = scores[player][cat];
@@ -165,7 +167,7 @@ function updateUpperSection(player) {
     }
     scores[player].sum = sum;
     // Als de som 63 of hoger is, krijg je 35 bonuspunten
-    scores[player].bonus = (sum <= 63) ? 35 : 0;
+    scores[player].bonus = (sum >= 63) ? 35 : 0;
 
 }
 
@@ -217,25 +219,25 @@ switch (cat) {
         }
         return total;
     case "threes":
-        var total = 0;
+        let total = 0;
         for (var i = 0; i < diceArr.length; i++) {
             if (diceArr[i] === 3) total += 3;
         }
         return total;
     case "fours":
-        var total = 0;
+        let total = 0;
         for (var i = 0; i < diceArr.length; i++) {
             if (diceArr[i] === 4) total += 4;
         }
         return total;
     case "fives":
-        var total = 0;
+        let total = 0;
         for (var i = 0; i < diceArr.length; i++) {
             if (diceArr[i] === 5) total += 5;
         }
         return total;
     case "sixes":
-        var total = 0;
+        let total = 0;
         for (var i = 0; i < diceArr.length; i++) {
             if (diceArr[i] === 6) total += 6;
         }
@@ -282,5 +284,19 @@ switch (cat) {
         return 0;
 }
 }
+
+
+
+
+
+
+
+updateDiceUi();
+updateScoreboard();
+
+
+
+
+
 
 
