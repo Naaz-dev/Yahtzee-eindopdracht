@@ -1,3 +1,4 @@
+/* Algemene opmaak */
 body {
     margin: 0;
     padding: 20px;
@@ -5,6 +6,7 @@ body {
     background-color: #f4f4f4;
 }
 
+/* Container voor twee kolommen (linker- en rechterpaneel) */
 #gameContainer {
     display: flex;
     justify-content: space-between;
@@ -12,9 +14,9 @@ body {
     margin: 0 auto;
 }
 
+/* Linkerpaneel: Spelinformatie, dobbelstenen en knoppen */
 #leftPanel {
-    display: inline-table;
-    width: 50px;
+    width: 50%;
     text-align: center;
 }
 
@@ -24,9 +26,9 @@ body {
     font-weight: bold;
 }
 
+/* Dobbelstenen */
 #diceContainer {
     margin-bottom: 20px;
-
 }
 
 .die {
@@ -46,14 +48,15 @@ body {
     background-color: #f88;
 }
 
+/* Knoppen */
 button {
     margin: 5px;
     padding: 8px 12px;
     font-size: 16px;
     cursor: pointer;
-
 }
 
+/* Rechterpaneel: Scorebord */
 #rightPanel {
     width: 45%;
 }
@@ -63,7 +66,6 @@ table {
     border-collapse: collapse;
 }
 
-
 table th,
 table td {
     border: 1px solid #333;
@@ -71,8 +73,10 @@ table td {
     text-align: center;
 }
 
+/* Nieuwe stijl voor een gekozen scorecel */
 td.chosen {
     background-color: #d1ffd1;
-
+    /* Lichtgroen */
     color: #006600;
+    /* Donkergroen */
 }
